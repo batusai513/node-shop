@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cart_items {
+  created_at DateTime?
+  id         Int       @default(autoincrement()) @id
+  item_id    Int?
+  quantity   Int?      @default(1)
+  updated_at DateTime?
+  user_id    Int?
+  items      items?    @relation(fields: [item_id], references: [id])
+  users      users?    @relation(fields: [user_id], references: [id])
+
+  @@index([item_id], name: "cart_items_item_id_foreign")
+  @@index([user_id], name: "cart_items_user_id_foreign")
+}
+
+model items {
+  created_at  DateTime?
+  description String
+  id          Int          @default(autoincrement()) @id
+  image       String?
+  large_image String?
+  price       Float
+  title       String
+  updated_at  DateTime?
+  user_id     Int?
+  users       users?       @relation(fields: [user_id], references: [id])
+  cart_items  cart_items[]
+
+  @@index([user_id], name: "items_user_id_foreign")
+}
+
+model knex_migrations {
+  batch          Int?
+  id             Int       @default(autoincrement()) @id
+  migration_time DateTime?
+  name           String?
+}
+
+model knex_migrations_lock {
+  index     Int  @default(autoincrement()) @id
+  is_locked Int?
+}
+
+model order_items {
+  created_at  DateTime?
+  description String
+  id          Int       @default(autoincrement()) @id
+  image       String
+  large_image String
+  order_id    Int
+  price       Float
+  quantity    Int       @default(1)
+  title       String
+  updated_at  DateTime?
+  user_id     Int?
+  orders      orders    @relation(fields: [order_id], references: [id])
+  users       users?    @relation(fields: [user_id], references: [id])
+
+  @@index([order_id], name: "order_items_order_id_foreign")
+  @@index([user_id], name: "order_items_user_id_foreign")
+}
+
+model orders {
+  charge      String?
+  created_at  DateTime?
+  id          Int           @default(autoincrement()) @id
+  total       Float
+  updated_at  DateTime?
+  user_id     Int?
+  users       users?        @relation(fields: [user_id], references: [id])
+  order_items order_items[]
+
+  @@index([user_id], name: "orders_user_id_foreign")
+}
+
+model users {
+  created_at  DateTime?
+  email       String
+  id          Int                @default(autoincrement()) @id
+  name        String
+  password    String
+  permissions users_permissions?
+  updated_at  DateTime?
+  cart_items  cart_items[]
+  items       items[]
+  order_items order_items[]
+  orders      orders[]
+}
+
+enum users_permissions {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}

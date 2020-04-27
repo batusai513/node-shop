@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon -e graphql,env,js --exec node index.js",
+    "debug": "nodemon -e graphql,env,js --exec node --inspect index.js",
+    "migrate:update": "prisma migrate save --experimental",
+    "migrate:run": "prisma migrate up --experimental",
+    "prima:generate": "prisma generate",
+    "generate-db": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/cli": "^2.0.0-beta.3",
+    "@prisma/client": "^2.0.0-beta.3",
+    "apollo-server-express": "^2.12.0",
+    "cookie-parse": "^0.4.0",
+    "cookie-session": "^1.4.0",
+    "deepmerge": "^4.2.2",
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "graphql-import": "^1.0.2",
+    "graphql-tools": "^5.0.0",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  }
+}

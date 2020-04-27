@@ -1,0 +1,26 @@
+type Item {
+  id: ID!
+  title: String
+  description: String!
+  image: String
+  largeImage: String
+  price: Float
+  createdAt: String
+  updatedAt: String
+}
+
+input createItemInput {
+  title: String!
+  description: String!
+  image: String
+  largeImage: String
+  price: Float
+}
+
+extend type Query {
+  getItems: [Item]
+}
+
+extend type Mutation {
+  createItem(input: createItemInput): Item
+}

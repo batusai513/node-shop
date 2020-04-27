@@ -1,0 +1,9 @@
+# import user from "./User/user.schema.graphql"
+
+type Query {
+  ping: String!
+}
+
+type Mutation {
+  ping: String
+}
