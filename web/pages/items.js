@@ -1,5 +1,4 @@
 import React from 'react';
+import Home from "./index";
 
-export default function Items() {
-  return 'items';
-}
+export default Home;

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 const { ApolloServer } = require('apollo-server-express');
 const resolvers = require('./types/root.resolver');
@@ -7,6 +8,13 @@ const loadSchemas = require('./utils/load_schemas');
 const db = new PrismaClient();
 const app = express();
 
+app.use(
+  cors({
+    credentials: true,
+    origin: 'http://localhost:3000',
+  })
+);
+
 function createServer() {
   const server = new ApolloServer({
     typeDefs: [loadSchemas()],
@@ -14,14 +22,14 @@ function createServer() {
     context(req) {
       return {
         ...req,
-        db
+        db,
       };
     },
   });
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: false });
 
-  app.listen(3000, function onInit() {
+  app.listen(4000, function onInit() {
     console.log('listening');
   });
 }

@@ -75,27 +75,27 @@ function Nav() {
     <NavStyles>
       <li>
         <Link href="/items">
-          <a>items</a>
+          <a>Shop</a>
         </Link>
       </li>
       <li>
         <Link href="/sell">
-          <a>sell</a>
+          <a>Sell</a>
         </Link>
       </li>
       <li>
         <Link href="/signup">
-          <a>signup</a>
+          <a>Signup</a>
         </Link>
       </li>
       <li>
         <Link href="/orders">
-          <a>orders</a>
+          <a>Orders</a>
         </Link>
       </li>
       <li>
         <Link href="/me">
-          <a>me</a>
+          <a>Me</a>
         </Link>
       </li>
     </NavStyles>
