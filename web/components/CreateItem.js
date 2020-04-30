@@ -29,6 +29,18 @@ const CREATE_ITEM_MUTATION = gql`
   }
 `;
 
+const ALL_ITEMS_QUERY = gql`
+  query ALL_ITEMS_QUERY {
+    getItems {
+      id
+      title
+      price
+      description
+      image
+    }
+  }
+`;
+
 export default function CreateItem() {
   const defaults = useConstant(() => ({
     title: '',
@@ -46,10 +58,10 @@ export default function CreateItem() {
   const [uploading, setUploading] = React.useState(false);
   const router = useRouter();
 
-  const [
-    createItem,
-    { data, loading, error },
-  ] = useMutation(CREATE_ITEM_MUTATION, { variables: state });
+  const [createItem, { loading, error }] = useMutation(CREATE_ITEM_MUTATION, {
+    variables: state,
+    refetchQueries: [{ query: ALL_ITEMS_QUERY }],
+  });
 
   function handleChange(e) {
     const { value, name, type, files } = e.target;

@@ -17,10 +17,21 @@ input createItemInput {
   price: Float
 }
 
+input updateItemInput {
+  title: String
+  description: String
+  image: String
+  largeImage: String
+  price: Float
+}
+
 extend type Query {
   getItems: [Item]
+  getItem(id: ID!): Item
 }
 
 extend type Mutation {
   createItem(input: createItemInput): Item
+  updateItem(id: ID!, input: updateItemInput): Item
+  removeItem(id: ID!): Item
 }

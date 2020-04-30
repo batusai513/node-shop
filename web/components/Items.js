@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import styled from 'styled-components';
 import Item from './Item';
 
+
 const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS_QUERY {
     getItems {
@@ -20,6 +21,7 @@ export default function Items() {
   const { loading, data, error } = useQuery(ALL_ITEMS_QUERY, {
     fetchPolicy: 'network-only',
   });
+
   if (loading) {
     return <h1>Loading</h1>;
   }

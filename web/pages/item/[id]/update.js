@@ -1,5 +1,9 @@
 import React from 'react';
+import UpdateItem from '../../../components/UpdateItem';
+import { withApollo } from '../../../utils/apollo';
 
-export default function Item() {
-  return 'update';
+function ItemUpdate() {
+  return <UpdateItem />;
 }
+
+export default withApollo({ ssr: true })(ItemUpdate);
