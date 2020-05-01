@@ -13,10 +13,13 @@ export default function Item({ id, title, price, description, image }) {
     variables: { id },
     update(store, { data: { removeItem } }) {
       const data = store.readQuery({ query: ALL_ITEMS_QUERY });
-      const getItems = data.getItems.filter(
+      const items = data.getItems.items.filter(
         (item) => item.id !== removeItem.id
       );
-      store.writeQuery({ query: ALL_ITEMS_QUERY, data: { getItems } });
+      store.writeQuery({
+        query: ALL_ITEMS_QUERY,
+        data: { getItems: { items: items } },
+      });
     },
     // refetchQueries: [
     //   {

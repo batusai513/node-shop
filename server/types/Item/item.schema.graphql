@@ -1,3 +1,7 @@
+type Meta {
+  count: Int!
+}
+
 type Item {
   id: ID!
   title: String
@@ -7,6 +11,16 @@ type Item {
   price: Float
   createdAt: String
   updatedAt: String
+}
+
+type ItemWithMeta {
+  items: [Item!]!
+  meta: Meta!
+}
+
+input getItemsInput {
+  skip: Int
+  first: Int
 }
 
 input createItemInput {
@@ -26,7 +40,7 @@ input updateItemInput {
 }
 
 extend type Query {
-  getItems: [Item]
+  getItems(input: getItemsInput): ItemWithMeta
   getItem(id: ID!): Item
 }
 

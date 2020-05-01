@@ -1,9 +1,14 @@
-query ALL_ITEMS_QUERY {
-  getItems {
-    id
-    title
-    price
-    description
-    image
+query ALL_ITEMS_QUERY($skip: Int = 0, $first: Int) {
+  getItems(input: { skip: $skip, first: $first }) {
+    items {
+      id
+      title
+      price
+      description
+      image
+    }
+    meta {
+      count
+    }
   }
 }

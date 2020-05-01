@@ -1,7 +1,13 @@
 module.exports = {
   Query: {
-    getItems(_, __, { db }) {
-      return db.item.findMany();
+    getItems(_, { input }, { db }) {
+      const { skip = 0, first } = input ?? {};
+      const args = first ? { skip, first } : {};
+      return Promise.all([db.item.findMany(args), db.item.count()]).then(
+        ([items, count]) => {
+          return { items, meta: { count } };
+        }
+      );
     },
     getItem(_, { id }, { db }) {
       return db.item.findOne({
