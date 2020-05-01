@@ -5,21 +5,23 @@ import ItemStyles from './styles/Item';
 import TitleStyles from './styles/Title';
 import PriceTag from './styles/PriceTag';
 import { formatMoney } from '../utils/format';
-import ALL_ITEMS_QUERY from '../graphql/item/getItems.graphql';
 import REMOVE_ITEM_MUTATION from '../graphql/item/removeItem.graphql';
 
 export default function Item({ id, title, price, description, image }) {
   const [removeItem, {}] = useMutation(REMOVE_ITEM_MUTATION, {
     variables: { id },
-    update(store, { data: { removeItem } }) {
-      const data = store.readQuery({ query: ALL_ITEMS_QUERY });
-      const items = data.getItems.items.filter(
-        (item) => item.id !== removeItem.id
-      );
-      store.writeQuery({
-        query: ALL_ITEMS_QUERY,
-        data: { getItems: { items: items } },
+    update(cache, { data: { removeItem } }) {
+      cache.modify('ROOT_QUERY', {
+        getItems({ items, ...rest }, { readField, ...resta }) {
+          return {
+            ...rest,
+            items: (items ?? []).filter((item) => {
+              return id !== readField('id', item);
+            }),
+          };
+        },
       });
+      cache.evict(`Item:${id}`);
     },
     // refetchQueries: [
     //   {

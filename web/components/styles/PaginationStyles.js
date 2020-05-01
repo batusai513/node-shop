@@ -11,6 +11,7 @@ const PaginationStyles = styled.div`
   margin: ${themeToRem(20)} 0;
   border: 1px solid ${props => props.theme.lightGrey};
   border-radius: 10px;
+  font-size: ${themeToRem(10)};
   & > * {
     margin: 0;
     padding: 15px 30px;
