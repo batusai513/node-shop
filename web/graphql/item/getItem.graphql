@@ -1,0 +1,9 @@
+query GET_SINGLE_ITEM_QUERY($id: ID!) {
+  getItem(id: $id) {
+    id
+    title
+    description
+    largeImage
+    price
+  }
+}

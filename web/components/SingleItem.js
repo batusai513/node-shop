@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import { gql } from '@apollo/client';
 import { useQuery } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import GET_SINGLE_ITEM_QUERY from '../graphql/item/getItem.graphql';
 
 const SingleItemStyles = styled.article`
   max-width: 1200px;
@@ -21,18 +21,6 @@ const SingleItemStyles = styled.article`
   .details {
     margin: 30px;
     font-size: 20px;
-  }
-`;
-
-export const GET_SINGLE_ITEM_QUERY = gql`
-  query GET_SINGLE_ITEM_QUERY($id: ID!) {
-    getItem(id: $id) {
-      id
-      title
-      description
-      largeImage
-      price
-    }
   }
 `;
 

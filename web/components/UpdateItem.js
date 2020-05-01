@@ -1,48 +1,13 @@
 import React from 'react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import merge from 'deepmerge';
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
 import { formatMoney } from '../utils/format';
 import useConstant from '../utils/useConstant';
-
-const GET_ITEM = gql`
-  query GET_ITEM($id: ID!) {
-    getItem(id: $id) {
-      id
-      title
-      description
-      image
-      price
-    }
-  }
-`;
-
-const UPDATE_ITEM_MUTATION = gql`
-  mutation UPDATE_ITEM_MUTATION(
-    $id: ID!
-    $title: String!
-    $description: String!
-    $image: String
-    $largeImage: String
-    $price: Float
-  ) {
-    updateItem(
-      id: $id
-      input: {
-        title: $title
-        description: $description
-        image: $image
-        largeImage: $largeImage
-        price: $price
-      }
-    ) {
-      id
-    }
-  }
-`;
+import UPDATE_ITEM_MUTATION from '../graphql/item/updateItem.graphql';
+import GET_ITEM from '../graphql/item/getItem.graphql';
 
 export default function UpdateItem() {
   const router = useRouter();

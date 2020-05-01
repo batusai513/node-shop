@@ -1,0 +1,19 @@
+mutation CREATE_ITEM_MUTATION(
+  $title: String!
+  $description: String!
+  $image: String
+  $largeImage: String
+  $price: Float
+) {
+  createItem(
+    input: {
+      title: $title
+      description: $description
+      image: $image
+      largeImage: $largeImage
+      price: $price
+    }
+  ) {
+    id
+  }
+}

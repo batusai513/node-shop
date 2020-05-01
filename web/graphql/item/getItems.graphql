@@ -1,0 +1,9 @@
+query ALL_ITEMS_QUERY {
+  getItems {
+    id
+    title
+    price
+    description
+    image
+  }
+}

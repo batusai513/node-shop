@@ -1,0 +1,21 @@
+mutation UPDATE_ITEM_MUTATION(
+  $id: ID!
+  $title: String!
+  $description: String!
+  $image: String
+  $largeImage: String
+  $price: Float
+) {
+  updateItem(
+    id: $id
+    input: {
+      title: $title
+      description: $description
+      image: $image
+      largeImage: $largeImage
+      price: $price
+    }
+  ) {
+    id
+  }
+}

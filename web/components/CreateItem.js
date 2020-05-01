@@ -1,45 +1,12 @@
 import React from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
 import { formatMoney } from '../utils/format';
 import useConstant from '../utils/useConstant';
-
-const CREATE_ITEM_MUTATION = gql`
-  mutation CREATE_ITEM_MUTATION(
-    $title: String!
-    $description: String!
-    $image: String
-    $largeImage: String
-    $price: Float
-  ) {
-    createItem(
-      input: {
-        title: $title
-        description: $description
-        image: $image
-        largeImage: $largeImage
-        price: $price
-      }
-    ) {
-      id
-    }
-  }
-`;
-
-const ALL_ITEMS_QUERY = gql`
-  query ALL_ITEMS_QUERY {
-    getItems {
-      id
-      title
-      price
-      description
-      image
-    }
-  }
-`;
+import CREATE_ITEM_MUTATION from '../graphql/item/createItem.graphql';
+import ALL_ITEMS_QUERY from '../graphql/item/getItems.graphql';
 
 export default function CreateItem() {
   const defaults = useConstant(() => ({
