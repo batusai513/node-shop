@@ -18,7 +18,7 @@ export default function Items() {
         first: pageCount,
       },
       fetchPolicy: 'network-only',
-    }
+    },
   );
 
   if (loading) {
@@ -31,7 +31,8 @@ export default function Items() {
         <Pagination
           count={count}
           pageCount={pageCount}
-          page={parseInt(page, 10)}></Pagination>
+          page={parseInt(page, 10)}
+        ></Pagination>
         <ItemList>
           {getItems.items.map((item) => {
             return (

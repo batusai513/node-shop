@@ -25,7 +25,8 @@ function Signin() {
         signin().then(() => {
           resetForm();
         });
-      }}>
+      }}
+    >
       <fieldset disabled={loading} aria-busy={loading}>
         <h2>Sign up for an account</h2>
         <Error error={error} />

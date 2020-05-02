@@ -50,7 +50,8 @@ export default function Item({ id, title, price, description, image }) {
             if (confirm('Do you wish to delete this item')) {
               removeItem();
             }
-          }}>
+          }}
+        >
           Delete{' '}
         </button>
       </div>

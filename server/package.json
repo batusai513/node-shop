@@ -9,7 +9,8 @@
     "migrate:update": "prisma migrate save --experimental",
     "migrate:run": "prisma migrate up --experimental",
     "prima:generate": "prisma generate",
-    "generate-db": "prisma generate"
+    "generate-db": "prisma generate",
+    "lint": "eslint ./types/**/*.js"
   },
   "dependencies": {
     "@prisma/cli": "^2.0.0-beta.4",
@@ -29,6 +30,10 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-node": "^11.1.0",

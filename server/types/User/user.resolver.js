@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   Query: {
-    getUsers(_, __, { db, res }) {
+    getUsers(_, __, { db }) {
       return db.user.findMany();
     },
     me(_, __, { db, req }) {
@@ -18,7 +18,7 @@ module.exports = {
   },
 
   Mutation: {
-    signout(_, __, { req, res }) {
+    signout(_, __, { res }) {
       res.clearCookie('token');
       return {
         message: 'Logout succesfully',
@@ -26,11 +26,19 @@ module.exports = {
     },
     async signin(_, { input }, { db, res }) {
       input.email = input.email.toLowerCase();
-      const user = await db.user.findOne({ where: { email: input.email } });
+      const user = await db.user.findOne({
+        where: { email: input.email },
+      });
       if (user) {
-        const matched = await bcrypt.compare(input.password, user.password);
+        const matched = await bcrypt.compare(
+          input.password,
+          user.password,
+        );
         if (matched) {
-          const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+          const token = jwt.sign(
+            { userId: user.id },
+            process.env.JWT_SECRET,
+          );
           res.cookie('token', token, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24,
@@ -55,7 +63,10 @@ module.exports = {
             },
           })
           .then((user) => {
-            const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+            const token = jwt.sign(
+              { userId: user.id },
+              process.env.JWT_SECRET,
+            );
             res.cookie('token', token, {
               httpOnly: true,
               maxAge: 1000 * 60 * 60 * 24,

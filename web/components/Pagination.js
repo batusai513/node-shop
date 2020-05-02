@@ -10,7 +10,8 @@ function Pagination({ count, pageCount, page }) {
         href={{
           pathname: 'items',
           query: { page: page - 1 },
-        }}>
+        }}
+      >
         <a className="prev" aria-disabled={page <= 1}>
           ← Prev
         </a>
@@ -23,7 +24,8 @@ function Pagination({ count, pageCount, page }) {
         href={{
           pathname: 'items',
           query: { page: page + 1 },
-        }}>
+        }}
+      >
         <a className="prev" aria-disabled={page >= pages}>
           Next →
         </a>

@@ -70,7 +70,7 @@ export default function CreateItem() {
         },
         (err) => {
           console.log(err);
-        }
+        },
       );
     });
   }
@@ -80,7 +80,8 @@ export default function CreateItem() {
       <ErrorMessage error={error} />
       <fieldset
         disabled={loading || uploading}
-        aria-busy={loading || uploading}>
+        aria-busy={loading || uploading}
+      >
         <label htmlFor="tempImage">Image</label>
         <input
           type="file"
