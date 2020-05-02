@@ -2,19 +2,33 @@ type User {
   id: ID!
   name: String!
   email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
   createdAt: String!
   updatedAt: String!
+  permissions: [Permission!]!
+}
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
 }
 
 input createUserInput {
   name: String!
   email: String!
+  password: String!
 }
 
 extend type Query {
   getUsers: [User]
+  me: User
 }
 
 extend type Mutation {
-  createUser(input: createUserInput): User
+  signup(input: createUserInput): User
 }

@@ -81,6 +81,11 @@ model orders {
   @@index([user_id], name: "orders_user_id_foreign")
 }
 
+model people {
+  id          Int    @id
+  permissions String
+}
+
 model users {
   created_at  DateTime?
   email       String

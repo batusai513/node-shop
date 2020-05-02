@@ -3,4 +3,4 @@
 # Prisma Migrate lockfile v1
 # Read more about conflict resolution here: TODO
 
-20200427144217-create_user_and_item_tables
+20200501193217-users_items

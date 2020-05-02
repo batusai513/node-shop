@@ -2,6 +2,18 @@
   "version": "0.3.14-fixed",
   "steps": [
     {
+      "tag": "CreateEnum",
+      "enum": "Permission",
+      "values": [
+        "ADMIN",
+        "USER",
+        "ITEMCREATE",
+        "ITEMUPDATE",
+        "ITEMDELETE",
+        "PERMISSIONUPDATE"
+      ]
+    },
+    {
       "tag": "CreateSource",
       "source": "db"
     },
@@ -12,7 +24,7 @@
         "source": "db"
       },
       "argument": "provider",
-      "value": "\"mysql\""
+      "value": "\"postgresql\""
     },
     {
       "tag": "CreateArgument",
@@ -83,6 +95,38 @@
       "field": "email",
       "type": "String",
       "arity": "Required"
+    },
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Field",
+          "model": "User",
+          "field": "email"
+        },
+        "directive": "unique"
+      }
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "password",
+      "type": "String",
+      "arity": "Required"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "resetToken",
+      "type": "String",
+      "arity": "Optional"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "resetTokenExpiry",
+      "type": "Float",
+      "arity": "Optional"
     },
     {
       "tag": "CreateField",
@@ -197,6 +241,13 @@
       },
       "argument": "",
       "value": "now()"
+    },
+    {
+      "tag": "CreateField",
+      "model": "User",
+      "field": "permissions",
+      "type": "Permission",
+      "arity": "List"
     },
     {
       "tag": "CreateDirective",

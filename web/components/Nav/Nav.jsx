@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import useUser from '../../utils/useUser';
 import { themeToRem } from '../../utils/styles';
 
 const NavStyles = styled.ul`
@@ -16,7 +17,7 @@ const NavStyles = styled.ul`
   a,
   button {
     padding: ${themeToRem(10)} ${themeToRem(30)};
-    color: ${props => props.theme.black};
+    color: ${(props) => props.theme.black};
     display: flex;
     align-items: center;
     position: relative;
@@ -33,7 +34,7 @@ const NavStyles = styled.ul`
     }
     &:before {
       content: '';
-      background-color: ${props => props.theme.lightGrey};
+      background-color: ${(props) => props.theme.lightGrey};
       width: 2px;
       height: 100%;
       left: 0;
@@ -63,7 +64,7 @@ const NavStyles = styled.ul`
     }
   }
   @media (max-width: 1300px) {
-    border-top: 1px solid ${props => props.theme.lightgrey};
+    border-top: 1px solid ${(props) => props.theme.lightgrey};
     width: 100%;
     justify-content: center;
     font-size: ${themeToRem(15)};
@@ -71,8 +72,15 @@ const NavStyles = styled.ul`
 `;
 
 function Nav() {
+  const { data } = useUser();
+  const { me } = data ?? {};
   return (
     <NavStyles>
+      {me ? (
+        <li>
+          {me.name}
+        </li>
+      ) : null}
       <li>
         <Link href="/items">
           <a>Shop</a>

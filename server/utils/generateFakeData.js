@@ -1,9 +1,19 @@
 const faker = require('faker');
 const { PrismaClient } = require('@prisma/client');
 
+const permissionsList = [
+  'ADMIN',
+  'USER',
+  'ITEMCREATE',
+  'ITEMUPDATE',
+  'ITEMDELETE',
+  'PERMISSIONUPDATE',
+];
+
 const client = new PrismaClient();
 
 console.log('Seeding');
+
 const promises = Array(20)
   .fill()
   .map(() =>
@@ -18,7 +28,7 @@ const promises = Array(20)
     })
   );
 
-Promise.all(promises).then(() => {
+Promise.all([...promises]).then(() => {
   console.info('All done');
   process.exit(0);
 });
