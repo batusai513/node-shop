@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import Signout from '../Signout';
 import useUser from '../../utils/useUser';
 import { themeToRem } from '../../utils/styles';
 
@@ -76,36 +77,39 @@ function Nav() {
   const { me } = data ?? {};
   return (
     <NavStyles>
-      {me ? (
-        <li>
-          {me.name}
-        </li>
-      ) : null}
       <li>
         <Link href="/items">
           <a>Shop</a>
         </Link>
       </li>
-      <li>
-        <Link href="/sell">
-          <a>Sell</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/signup">
-          <a>Signup</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/orders">
-          <a>Orders</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/me">
-          <a>Me</a>
-        </Link>
-      </li>
+      {me ? (
+        <React.Fragment>
+          <li>
+            <Link href="/sell">
+              <a>Sell</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/orders">
+              <a>Orders</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/me">
+              <a>Account</a>
+            </Link>
+          </li>
+          <li>
+            <Signout />
+          </li>
+        </React.Fragment>
+      ) : (
+        <li>
+          <Link href="/signup">
+            <a>Sign In</a>
+          </Link>
+        </li>
+      )}
     </NavStyles>
   );
 }

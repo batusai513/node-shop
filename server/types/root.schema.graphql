@@ -1,5 +1,9 @@
 # import user from "./User/user.schema.graphql"
 
+type SuccessMessage {
+  message: String!
+}
+
 type Query {
   ping: String!
 }

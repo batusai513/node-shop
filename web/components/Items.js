@@ -10,7 +10,7 @@ export default function Items() {
   const pageCount = 4;
   const { query } = useRouter();
   const page = query.page ?? 1;
-  const { loading, data: { getItems } = {}, error } = useQuery(
+  const { loading, data: { getItems = {} } = {}, error } = useQuery(
     ALL_ITEMS_QUERY,
     {
       variables: {
@@ -54,6 +54,8 @@ export default function Items() {
       </React.Fragment>
     );
   }
+
+  return null;
 }
 
 const ItemList = styled.div`
