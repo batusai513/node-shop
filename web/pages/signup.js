@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Signup from '../components/Signup';
 import Signin from '../components/Signin';
+import RequestReset from '../components/RequestReset';
 import { withApollo } from '../utils/apollo';
 import Page from '../components/Page/Page';
-
 
 const Columns = styled.div`
   display: grid;
@@ -18,7 +18,7 @@ function SignupPage() {
       <Columns>
         <Signup />
         <Signin />
-        <Signup />
+        <RequestReset />
       </Columns>
     </Page>
   );

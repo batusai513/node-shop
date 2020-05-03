@@ -8,8 +8,8 @@
     "debug": "nodemon -e graphql,env,js --exec node --inspect index.js",
     "migrate:update": "prisma migrate save --experimental",
     "migrate:run": "prisma migrate up --experimental",
-    "prima:generate": "prisma generate",
-    "generate-db": "prisma generate",
+    "prisma:generate": "prisma generate",
+    "studio": "prisma studio --experimental",
     "lint": "eslint ./types/**/*.js"
   },
   "dependencies": {
@@ -27,7 +27,9 @@
     "glob": "^7.1.6",
     "graphql-import": "^1.0.2",
     "graphql-tools": "^5.0.0",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "ms": "^2.1.2",
+    "nodemailer": "^6.4.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

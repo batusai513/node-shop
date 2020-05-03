@@ -26,6 +26,16 @@ input signinInput {
   password: String!
 }
 
+input requestResetInput {
+  email: String!
+}
+
+input resetPasswordInput {
+  resetToken: String!
+  password: String!
+  confirmPassword: String!
+}
+
 extend type Query {
   getUsers: [User]
   me: User
@@ -34,5 +44,7 @@ extend type Query {
 extend type Mutation {
   signup(input: signupInput): User!
   signin(input: signinInput): User!
-  signout: SuccessMessage
+  signout: SuccessMessage!
+  requestReset(input: requestResetInput): SuccessMessage!
+  resetPassword(input: resetPasswordInput): User!
 }

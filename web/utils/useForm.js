@@ -5,8 +5,8 @@ export default function useForm(initialValues) {
   const defaults = useConstant(() => initialValues);
   const [state, setState] = React.useState(defaults);
 
-  const onHandleChange = useCallback(_handleChange);
-  const resetForm = useCallback(_resetForm, [defaults]);
+  const onHandleChange = useCallback(_handleChange, []);
+  const resetForm = useCallback(_resetForm, [initialValues]);
 
   return [state, onHandleChange, { initialValues: defaults, resetForm }];
 
