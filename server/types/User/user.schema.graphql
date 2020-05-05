@@ -6,6 +6,7 @@ type User {
   updatedAt: String!
   permissions: [Permission!]!
 }
+
 enum Permission {
   ADMIN
   USER
@@ -36,8 +37,14 @@ input resetPasswordInput {
   confirmPassword: String!
 }
 
+input updateUserInput {
+  name: String
+  email: String
+  permissions: [Permission]
+}
+
 extend type Query {
-  getUsers: [User]
+  users: [User]!
   me: User
 }
 
@@ -47,4 +54,5 @@ extend type Mutation {
   signout: SuccessMessage!
   requestReset(input: requestResetInput): SuccessMessage!
   resetPassword(input: resetPasswordInput): User!
+  updateUser(id: ID!, input: updateUserInput): User!
 }

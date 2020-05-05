@@ -12,6 +12,8 @@ const db = new PrismaClient({
 });
 const app = express();
 
+app.use(cookieparser());
+
 app.use(
   cors({
     credentials: true,
@@ -19,8 +21,8 @@ app.use(
   }),
 );
 
-app.use(cookieparser());
 app.use(authenticationMiddleware);
+app.use(userMiddleware);
 
 function createServer() {
   const server = new ApolloServer({
@@ -34,7 +36,13 @@ function createServer() {
     },
   });
 
-  server.applyMiddleware({ app, cors: false });
+  server.applyMiddleware({
+    app,
+    cors: {
+      credentials: true,
+      origin: 'http://localhost:3000',
+    },
+  });
 
   app.listen(4000, function onInit() {
     console.log('listening');
@@ -49,5 +57,27 @@ function authenticationMiddleware(req, res, next) {
     const { userId } = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = userId;
   }
+  next();
+}
+
+function userMiddleware(req, res, next) {
+  const userId = req.userId;
+  if (userId) {
+    return db.user
+      .findOne({
+        where: { id: userId },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          permissions: true,
+        },
+      })
+      .then((user) => {
+        req.user = user;
+        next();
+      });
+  }
+
   next();
 }

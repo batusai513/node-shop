@@ -1,3 +1,5 @@
+const { AuthenticationError } = require('apollo-server-express');
+
 module.exports = {
   Query: {
     getItems(_, { input }, { db }) {
@@ -17,9 +19,20 @@ module.exports = {
     },
   },
   Mutation: {
-    createItem(_, { input }, { db }) {
+    createItem(_, { input }, { db, req }) {
+      const { userId } = req;
+      if (!userId) {
+        throw new AuthenticationError('You need to be sign in');
+      }
       return db.item.create({
-        data: input,
+        data: {
+          ...input,
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
       });
     },
     updateItem(_, { id, input }, { db }) {
@@ -28,10 +41,43 @@ module.exports = {
         where: { id: parseInt(id, 10) },
       });
     },
-    removeItem(_, { id }, { db }) {
+    async removeItem(_, { id }, { db, req }) {
+      const item = await db.item.findOne({
+        where: {
+          id: parseInt(id, 10),
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      // check if the current user created the item or if he/she has permissions to delete
+
+      const ownsItem = req.userId === item.user.id;
+      const hasPermissions = req.user.permissions.some((permission) =>
+        ['ADMIN', 'ITEMDELETE'].includes(permission),
+      );
+
+      console.log(ownsItem, hasPermissions, req.userId, item.user.id);
+
+      if (!ownsItem && !hasPermissions) {
+        throw new Error("Doesn't have permissions");
+      }
+
       return db.item.delete({
         where: {
           id: parseInt(id, 10),
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     },

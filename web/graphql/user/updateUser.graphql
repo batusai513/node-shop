@@ -1,0 +1,25 @@
+mutation updateUser(
+  $id: ID!
+  $name: String
+  $email: String
+  $permissions: [Permission]
+) {
+  updateUser(
+    id: $id
+    input: { email: $email, name: $name, permissions: $permissions }
+  ) {
+    id
+    name
+    email
+    permissions
+  }
+}
+
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}

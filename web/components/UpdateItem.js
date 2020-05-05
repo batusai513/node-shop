@@ -32,7 +32,7 @@ export default function UpdateItem() {
   } = useQuery(GET_ITEM, { variables: { id: query.id } });
 
   const [state, setState] = React.useState(() =>
-    merge(defaults, itemData?.getItem ?? {})
+    merge(defaults, itemData?.getItem ?? {}),
   );
   const [uploading, setUploading] = React.useState(false);
 
@@ -40,7 +40,7 @@ export default function UpdateItem() {
     UPDATE_ITEM_MUTATION,
     {
       refetchQueries: [{ query: GET_ITEM, variables: { id: query.id } }],
-    }
+    },
   );
 
   React.useEffect(
@@ -49,7 +49,7 @@ export default function UpdateItem() {
         setState((state) => merge(state, itemData?.getItem ?? {}));
       }
     },
-    [itemData?.getItem]
+    [itemData?.getItem],
   );
 
   if (getItemLoading) {
@@ -62,7 +62,8 @@ export default function UpdateItem() {
       <ErrorMessage error={error} />
       <fieldset
         disabled={loading || uploading}
-        aria-busy={loading || uploading}>
+        aria-busy={loading || uploading}
+      >
         <label htmlFor="tempImage">Image</label>
         <input
           type="file"
@@ -159,7 +160,7 @@ export default function UpdateItem() {
         },
         (err) => {
           console.log(err);
-        }
+        },
       );
     });
   }

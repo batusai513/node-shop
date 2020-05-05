@@ -1,3 +1,4 @@
+import React from 'react';
 import withApollo from 'next-with-apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import {
@@ -25,10 +26,18 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 export function createClient(initialState, ctx) {
+  const headers = ctx?.req?.headers ?? {};
   const client = new ApolloClient({
     ssrMode: Boolean(true),
     cache: new InMemoryCache().restore(initialState),
-    link: concat(authMiddleware, httpLink),
+    link: concat(
+      authMiddleware,
+      new HttpLink({
+        uri: 'http://localhost:4000/graphql',
+        credentials: 'include',
+        headers,
+      }),
+    ),
   });
 
   return client;
@@ -49,6 +58,6 @@ export default withApollo(
         </ApolloProvider>
       );
     },
-  }
+  },
 );
 // export default withApollo(createClient);

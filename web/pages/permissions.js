@@ -1,17 +1,17 @@
 import React from 'react';
-import CreateItem from '../components/CreateItem';
 import { withApollo } from '../utils/apollo';
 import Page from '../components/Page/Page';
 import PleaseSignin from '../components/PleaseSignin';
+import Permissions from '../components/Permissions';
 
-function Sell() {
+function PermissionsPage() {
   return (
     <Page>
       <PleaseSignin>
-        <CreateItem />
+        <Permissions />
       </PleaseSignin>
     </Page>
   );
 }
 
-export default withApollo()(Sell);
+export default withApollo({ ssr: true })(PermissionsPage);
