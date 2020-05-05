@@ -8,11 +8,11 @@ import { formatMoney } from '../utils/format';
 import REMOVE_ITEM_MUTATION from '../graphql/item/removeItem.graphql';
 
 export default function Item({ id, title, price, description, image }) {
-  const [removeItem, {}] = useMutation(REMOVE_ITEM_MUTATION, {
+  const [removeItem] = useMutation(REMOVE_ITEM_MUTATION, {
     variables: { id },
     update(cache, { data: { removeItem } }) {
       cache.modify('ROOT_QUERY', {
-        getItems({ items, ...rest }, { readField, ...resta }) {
+        getItems({ items, ...rest }, { readField }) {
           return {
             ...rest,
             items: (items ?? []).filter((item) => {

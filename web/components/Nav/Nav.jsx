@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useMutation } from '@apollo/react-hooks';
 import Signout from '../Signout';
 import useUser from '../../utils/useUser';
 import { themeToRem } from '../../utils/styles';
+import TOGGLE_CART_MUTATION from '../../graphql/client/toggleCart.graphql';
 
 const NavStyles = styled.ul`
   margin: 0;
@@ -75,6 +77,7 @@ const NavStyles = styled.ul`
 function Nav() {
   const { data } = useUser();
   const { me } = data ?? {};
+  const [toggle] = useMutation(TOGGLE_CART_MUTATION);
   return (
     <NavStyles>
       <li>
@@ -102,6 +105,9 @@ function Nav() {
           <li>
             <Signout />
           </li>
+
+          <button onClick={toggle}>My Cart</button>
+          <li></li>
         </React.Fragment>
       ) : (
         <li>

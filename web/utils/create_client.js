@@ -8,6 +8,7 @@ import {
   ApolloLink,
   concat,
 } from '@apollo/client';
+import CART_OPEN_QUERY from '../graphql/client/cartOpen.graphql';
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
@@ -27,9 +28,16 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 
 export function createClient(initialState, ctx) {
   const headers = ctx?.req?.headers ?? {};
+  const cache = new InMemoryCache().restore(initialState);
+  cache.writeQuery({
+    query: CART_OPEN_QUERY,
+    data: {
+      cartOpen: false,
+    },
+  });
   const client = new ApolloClient({
+    cache,
     ssrMode: Boolean(true),
-    cache: new InMemoryCache().restore(initialState),
     link: concat(
       authMiddleware,
       new HttpLink({
@@ -38,6 +46,24 @@ export function createClient(initialState, ctx) {
         headers,
       }),
     ),
+    resolvers: {
+      Query: {
+        cartOpen(_, __, { cache }) {
+          const { cartOpen } = cache.readQuery({ query: CART_OPEN_QUERY });
+          return cartOpen;
+        },
+      },
+      Mutation: {
+        toggleCart(_, __, { cache }) {
+          const { cartOpen } = cache.readQuery({ query: CART_OPEN_QUERY });
+          const resolved = {
+            cartOpen: !cartOpen,
+          };
+          cache.writeQuery({ query: CART_OPEN_QUERY, data: resolved });
+          return resolved;
+        },
+      },
+    },
   });
 
   return client;
