@@ -1,5 +1,5 @@
 import React from 'react';
-import { withApollo } from '../utils/apollo';
+import { withApollo } from '../utils/create_client';
 import Page from '../components/Page/Page';
 import PleaseSignin from '../components/PleaseSignin';
 import Permissions from '../components/Permissions';
@@ -14,4 +14,4 @@ function PermissionsPage() {
   );
 }
 
-export default withApollo({ ssr: true })(PermissionsPage);
+export default withApollo(PermissionsPage);

@@ -5,6 +5,7 @@ type User {
   createdAt: String!
   updatedAt: String!
   permissions: [Permission!]!
+  cart: [CartItem]!
 }
 
 enum Permission {

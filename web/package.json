@@ -18,6 +18,7 @@
     "apollo-server-micro": "^2.13.0",
     "axios": "^0.19.2",
     "deepmerge": "^4.2.2",
+    "downshift": "^5.2.5",
     "isomorphic-unfetch": "^3.0.0",
     "knex": "^0.21.1",
     "mysql": "^2.18.1",
@@ -26,7 +27,9 @@
     "nprogress": "^0.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "styled-components": "^5.1.0"
+    "react-transition-group": "^4.4.1",
+    "styled-components": "^5.1.0",
+    "use-debounce": "^3.4.2"
   },
   "devDependencies": {
     "@prisma/cli": "^2.0.0-beta.4",

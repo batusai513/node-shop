@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Signup from '../components/Signup';
 import Signin from '../components/Signin';
 import RequestReset from '../components/RequestReset';
-import { withApollo } from '../utils/apollo';
+import { withApollo } from '../utils/create_client';
 import Page from '../components/Page/Page';
 
 const Columns = styled.div`
@@ -24,4 +24,4 @@ function SignupPage() {
   );
 }
 
-export default withApollo()(SignupPage);
+export default withApollo(SignupPage);

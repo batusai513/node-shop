@@ -17,6 +17,16 @@ module.exports = {
         where: { id: parseInt(id, 10) },
       });
     },
+    searchItems(_, { searchTerm }, { db }) {
+      return db.item.findMany({
+        where: {
+          OR: [
+            { title: { contains: searchTerm } },
+            { description: { contains: searchTerm } },
+          ],
+        },
+      });
+    },
   },
   Mutation: {
     createItem(_, { input }, { db, req }) {
@@ -61,8 +71,6 @@ module.exports = {
       const hasPermissions = req.user.permissions.some((permission) =>
         ['ADMIN', 'ITEMDELETE'].includes(permission),
       );
-
-      console.log(ownsItem, hasPermissions, req.userId, item.user.id);
 
       if (!ownsItem && !hasPermissions) {
         throw new Error("Doesn't have permissions");

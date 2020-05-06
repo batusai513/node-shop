@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { useMutation } from '@apollo/react-hooks';
 import Signout from '../Signout';
+import CartCount from '../CartCount';
 import useUser from '../../utils/useUser';
 import { themeToRem } from '../../utils/styles';
 import TOGGLE_CART_MUTATION from '../../graphql/client/toggleCart.graphql';
@@ -105,9 +106,11 @@ function Nav() {
           <li>
             <Signout />
           </li>
-
-          <button onClick={toggle}>My Cart</button>
-          <li></li>
+          <li>
+            <button onClick={toggle}>
+              My Cart <CartCount count={getItemCount(me.cart ?? [])} />
+            </button>
+          </li>
         </React.Fragment>
       ) : (
         <li>
@@ -118,6 +121,12 @@ function Nav() {
       )}
     </NavStyles>
   );
+}
+
+function getItemCount(cart) {
+  return cart.reduce((tally, cartItem) => {
+    return tally + cartItem.quantity;
+  }, 0);
 }
 
 export default Nav;

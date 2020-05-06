@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Page from '../components/Page/Page';
-import { withApollo } from '../utils/apollo';
+import { withApollo } from '../utils/create_client';
 import useForm from '../utils/useForm';
 
 function Me() {
@@ -55,4 +55,4 @@ function Me() {
   );
 }
 
-export default withApollo({ ssr: true })(Me);
+export default withApollo(Me);

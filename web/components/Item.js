@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import ItemStyles from './styles/Item';
 import TitleStyles from './styles/Title';
 import PriceTag from './styles/PriceTag';
+import AddToCart from './AddToCart';
 import { formatMoney } from '../utils/format';
 import REMOVE_ITEM_MUTATION from '../graphql/item/removeItem.graphql';
 
@@ -43,7 +44,7 @@ export default function Item({ id, title, price, description, image }) {
         <Link href="/item/[id]/update" as={`/item/${id}/update`}>
           <a>Edit ✏️</a>
         </Link>
-        <button>Add to Cart</button>
+        <AddToCart itemId={id} />
         <button
           onClick={(e) => {
             e.preventDefault();

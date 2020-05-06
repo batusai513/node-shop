@@ -42,6 +42,7 @@ input updateItemInput {
 extend type Query {
   getItems(input: getItemsInput): ItemWithMeta
   getItem(id: ID!): Item
+  searchItems(searchTerm: String!): [Item]
 }
 
 extend type Mutation {

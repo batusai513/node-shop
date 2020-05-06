@@ -5,6 +5,7 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 import Nav from '../Nav/Nav';
 import Cart from '../Cart';
+import Search from '../Search';
 import { themeToRem } from '../../utils/styles';
 
 const Logo = styled.h1`
@@ -76,7 +77,7 @@ export default function Header() {
         <Nav />
       </div>
       <div className="sub-bar">
-        <p>Search</p>
+        <Search />
       </div>
       <Cart />
     </StyledHeader>

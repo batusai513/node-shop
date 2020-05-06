@@ -1,6 +1,6 @@
 import React from 'react';
 import Items from '../components/Items';
-import { withApollo } from '../utils/apollo';
+import { withApollo } from '../utils/create_client';
 import Page from '../components/Page/Page';
 
 function Home() {
@@ -11,4 +11,4 @@ function Home() {
   );
 }
 
-export default withApollo({ ssr: true })(Home);
+export default withApollo(Home);

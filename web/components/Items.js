@@ -28,11 +28,11 @@ export default function Items() {
     const count = getItems.meta.count;
     return (
       <React.Fragment>
-        <Pagination
+        {/*<Pagination
           count={count}
           pageCount={pageCount}
           page={parseInt(page, 10)}
-        ></Pagination>
+        ></Pagination>*/}
         <ItemList>
           {getItems.items.map((item) => {
             return (

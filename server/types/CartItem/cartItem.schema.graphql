@@ -1,0 +1,15 @@
+type CartItem {
+  id: ID
+  quantity: Float!
+  user: User!
+  item: Item
+}
+
+extend type Query {
+  cartItem(itemId: ID!): CartItem
+}
+
+extend type Mutation {
+  addToCart(itemId: ID!): CartItem
+  removeFromCart(id: ID!): CartItem
+}

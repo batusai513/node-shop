@@ -23,6 +23,18 @@ module.exports = {
     signup,
     updateUser,
   },
+
+  User: {
+    cart({ id: userId }, __, { db }) {
+      return db.cartItem.findMany({
+        where: {
+          user: {
+            id: parseInt(userId),
+          },
+        },
+      });
+    },
+  },
 };
 
 function updateUser(_, { input, id }, { db, req }) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import withApollo from 'next-with-apollo';
+import _withApollo from 'next-with-apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import {
   ApolloClient,
@@ -8,12 +8,8 @@ import {
   ApolloLink,
   concat,
 } from '@apollo/client';
+import { getDataFromTree } from '@apollo/react-ssr';
 import CART_OPEN_QUERY from '../graphql/client/cartOpen.graphql';
-
-const httpLink = new HttpLink({
-  uri: 'http://localhost:4000/graphql',
-  credentials: 'include',
-});
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   // add the authorization to the headers
@@ -26,8 +22,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-export function createClient(initialState, ctx) {
-  const headers = ctx?.req?.headers ?? {};
+function _createClient(initialState, headers) {
   const cache = new InMemoryCache().restore(initialState);
   cache.writeQuery({
     query: CART_OPEN_QUERY,
@@ -69,14 +64,19 @@ export function createClient(initialState, ctx) {
   return client;
 }
 
-export default withApollo(
-  ({ initialState }) => {
-    return new ApolloClient({
-      cache: new InMemoryCache().restore(initialState),
-      link: concat(authMiddleware, httpLink),
-    });
+export function createClient(initialState, ctx) {
+  const headers = ctx?.req?.headers ?? {};
+  const client = _createClient(initialState, headers);
+
+  return client;
+}
+
+export const withApollo = _withApollo(
+  ({ initialState, headers, ctx }) => {
+    return _createClient(initialState, headers);
   },
   {
+    getDataFromTree,
     render({ Page, props }) {
       return (
         <ApolloProvider client={props.apollo}>

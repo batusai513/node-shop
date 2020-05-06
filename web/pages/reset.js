@@ -1,5 +1,5 @@
 import React from 'react';
-import { withApollo } from '../utils/apollo';
+import { withApollo } from '../utils/create_client';
 import Page from '../components/Page/Page';
 import ResetPassword from '../components/ResetPassword';
 
@@ -11,4 +11,4 @@ function ResetPage() {
   );
 }
 
-export default withApollo({ ssr: true })(ResetPage);
+export default withApollo(ResetPage);

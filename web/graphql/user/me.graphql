@@ -3,6 +3,17 @@ query me {
     id
     name
     email
-    permissions
+    permissions,
+    cart {
+      id
+      quantity
+      item {
+        id
+        title
+        image
+        price
+        description
+      }
+    }
   }
 }

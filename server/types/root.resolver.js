@@ -1,6 +1,7 @@
 const merge = require('deepmerge');
 const userResolver = require('./User/user.resolver');
 const itemResolver = require('./Item/item.resolver');
+const cartItemResolver = require('./CartItem/cartItem.resolver');
 
 const root = {
   Query: {
@@ -11,4 +12,9 @@ const root = {
   Mutation: {},
 };
 
-module.exports = merge.all([root, userResolver, itemResolver]);
+module.exports = merge.all([
+  root,
+  userResolver,
+  itemResolver,
+  cartItemResolver,
+]);
