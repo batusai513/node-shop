@@ -22,7 +22,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "knex": "^0.21.1",
     "mysql": "^2.18.1",
-    "next": "9.3.6",
+    "next": "13.0.2",
     "next-with-apollo": "^5.0.1",
     "nprogress": "^0.2.0",
     "react": "16.13.1",
